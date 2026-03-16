@@ -30,6 +30,7 @@ COPY docker_requirements.txt /workspace/docker_requirements.txt
 COPY setup.py /workspace/setup.py
 COPY pyproject.toml /workspace/pyproject.toml
 COPY kimodo /workspace/kimodo
+COPY kimodo-viser /workspace/kimodo-viser
 COPY MotionCorrection /workspace/MotionCorrection
 
 RUN --mount=type=cache,target=/root/.cache/pip \

@@ -5,8 +5,10 @@
 #    uv pip compile docker_requirements.in -o docker_requirements.txt --python-version 3.10 --python-platform x86_64-manylinux2014
 -e .
     # via -r docker_requirements.in
-viser @ git+https://github.com/nv-tlabs/kimodo-viser.git
+-e ./kimodo-viser
+    # via -r docker_requirements.in
 py-soma-x @ git+https://github.com/NVlabs/SOMA-X.git
+    # via -r docker_requirements.in
 accelerate==1.13.0
     # via peft
 aiofiles==24.1.0
