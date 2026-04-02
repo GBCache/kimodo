@@ -7,6 +7,8 @@ import os
 import numpy as np
 import torch
 
+from transformers import BitsAndBytesConfig  # CHANGE- add this
+
 from .llm2vec import LLM2Vec
 
 
@@ -29,11 +31,24 @@ class LLM2VecEncoder:
             base_model_name_or_path = os.path.join(os.environ["TEXT_ENCODERS_DIR"], base_model_name_or_path)
             peft_model_name_or_path = os.path.join(os.environ["TEXT_ENCODERS_DIR"], peft_model_name_or_path)
 
+        ###########################CHANGE - add this
+        quantization_config = BitsAndBytesConfig(
+            load_in_4bit=True,
+            bnb_4bit_compute_dtype=torch_dtype,
+            bnb_4bit_use_double_quant=True,
+            bnb_4bit_quant_type="nf4",
+        )
+        ###########################33
+        
         self.model = LLM2Vec.from_pretrained(
             base_model_name_or_path=base_model_name_or_path,
             peft_model_name_or_path=peft_model_name_or_path,
             torch_dtype=torch_dtype,
             cache_dir=cache_dir,
+            ###################CHANGE - add this
+            quantization_config=quantization_config,
+            device_map="auto", 
+            ####################3333            
         )
         self.model.eval()
         for p in self.model.parameters():
