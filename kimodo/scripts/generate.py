@@ -7,6 +7,18 @@ from typing import Any, Dict, Optional
 
 import torch
 
+######### CHANGE - add this
+current_file_dir_path=os.path.dirname(os.path.abspath(__file__))
+import sys
+motion_correction_path = "../../MotionCorrection/python"
+sys.path.append(os.path.join(current_file_dir_path,motion_correction_path))
+
+from kimodo.model.text_encoder_api import TextEncoderAPI
+
+
+###########3 look down at the model instatiation where i created this TextEncoderAPI object
+#################3
+
 from kimodo import DEFAULT_MODEL, load_model
 from kimodo.constraints import load_constraints_lst
 from kimodo.exports.motion_io import save_kimodo_npz
@@ -14,6 +26,7 @@ from kimodo.meta import load_prompts_from_meta
 from kimodo.model.cfg import CFG_TYPES
 from kimodo.model.registry import get_model_info
 from kimodo.tools import load_json, seed_everything
+
 
 
 def parse_args():
@@ -263,13 +276,19 @@ def main():
     print(f"Using device: {device}")
 
     args = parse_args()
-
+    ###########CHANGE - add this
+    #### 9550 is the same default port at which we ran our text_encoder_server
+    remote_encoder = TextEncoderAPI(url="http://127.0.0.1:9550")
+    ################################3
     # Load model (resolution of name done inside load_model)
     model, resolved_model = load_model(
         args.model,
         device=device,
         default_family="Kimodo",
         return_resolved_name=True,
+        ###########CHANGE - add this
+        text_encoder=remote_encoder,
+        ####################
     )
     info = get_model_info(resolved_model)
     display = info.display_name if info else resolved_model
