@@ -1,3 +1,8 @@
+In order to load llm encoder in 4 bit quant, just add the lines from this file in my repo https://github.com/GBCache/kimodo/blob/main/kimodo/model/llm2vec/llm2vec_wrapper.py
+this reduces model vram usage from 17GB to 5.8GB.
+i tested this on my 3060 6gb gpu and it works fine, because the motion model is small it achieved 14.6 it/s. so 150 frames were done in seconds.
+
+
 <p align="center">
   <img src="./assets/banner.png" alt="Banner" width="100%">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-76B900.svg" alt="License"></a>
