@@ -1,6 +1,14 @@
-In order to load llm encoder in 4 bit quant, just add the lines from this file in my repo https://github.com/GBCache/kimodo/blob/main/kimodo/model/llm2vec/llm2vec_wrapper.py
+In order to load llm encoder in 4 bit quant, just add the lines from these file in my repo
+https://github.com/GBCache/kimodo/blob/main/kimodo/model/llm2vec/llm2vec_wrapper.py
+https://github.com/GBCache/kimodo/blob/main/kimodo/scripts/generate.py
 this reduces model vram usage from 17GB to 5.8GB.
 i tested this on my 3060 6gb gpu and it works fine, because the motion model is small it achieved 14.6 it/s. so 150 frames were done in seconds.
+
+you can watch this video on youtube for full walkthrough- https://youtu.be/1El7rzI4-4w
+if you get cmake error, build the motion_correction library manually and give its python path in generate file like i have done.
+first run text_encoder_server then use their generate command to make bvh motion file
+example - python generate.py "A person walking while waving their left hand" --duration 5.0 --bvh --blender_motion_file
+
 
 
 <p align="center">
